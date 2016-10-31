@@ -105,9 +105,13 @@ angular
         templateUrl:'views/pages/login.html',
         url:'/login'
     })
-      .state('dashboard.chart',{
-        templateUrl:'views/chart.html',
-        url:'/chart',
+      .state('dashboard.table',{
+        templateUrl:'views/table.html',
+        url:'/table'
+    })
+      .state('dashboard.charts',{
+        templateUrl:'views/ui-elements/charts.html',
+        url:'/charts',
         controller:'ChartCtrl',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -125,14 +129,30 @@ angular
           }
         }
     })
-      .state('dashboard.table',{
-        templateUrl:'views/table.html',
-        url:'/table'
+      .state('dashboard.facebook_sentiment_analysis',{
+        templateUrl:'views/analysis/sentiment/facebook/facebook.html',
+        url:'/facebook_sentiment_analysis',
+        controller:'FbSaCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/facebookChartContoller.js']
+            })
+          }
+        }
     })
       .state('dashboard.panels-wells',{
           templateUrl:'views/ui-elements/panels-wells.html',
           url:'/panels-wells'
-      })
+    })
       .state('dashboard.buttons',{
         templateUrl:'views/ui-elements/buttons.html',
         url:'/buttons'
